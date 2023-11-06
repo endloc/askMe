@@ -1,0 +1,24 @@
+{% load static %}
+
+<div class="card">
+    <div class="row g-0">
+        <div class="col-2">
+            <img class="question-img" src="{% static '/img/ava.jpg' %}" alt="...">
+            <div class="vote">
+                <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="card-body">
+                <h4><a class="card-title" href="">{{ question.title }}</a>
+                </h4>
+                <p class="card-text">
+                    {{ question.content }}
+                </p>
+                <p>Tags: <a class="ques-tags" href="#">harry</a>, <a class="ques-tags" href="#">whale
+                </p>
+                <a class="ques-ans" href="#">Go to answers (10)</a>
+            </div>
+        </div>
+    </div>
+</div>
