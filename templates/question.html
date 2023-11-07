@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +14,7 @@
 <body>
     <div class="row my-nav">
         <div class="col-md-3 site-name">
-            <span class="site-name">Intellection</span>
+            <a class="site-name" href="{% url 'index' %}">Intellection</a>
         </div>
         <div class="col-md-6">
             <form class="d-flex">
@@ -35,7 +37,7 @@
             </div>
         </div>
         <div class="col-md-1">
-            <img class="avatar" src="../static/img/ava.jpg">
+            <img class="avatar" src="{% static '/img/ava.jpg' %}">
         </div>
     </div>
 
@@ -44,21 +46,12 @@
             <div class="col-md-9">
                 <div class="row ques-body">
                     <div class="col-2">
-                        <img class="ques-page-img" src="../static/img/ava.jpg" alt="...">
+                        <img class="ques-page-img" src="{% static '/img/ava.jpg' %}" alt="...">
                     </div>
                     <div class="col-10">
-                        <h3 class="ques-name">How to build a moon park?</h3>
+                        <h3 class="ques-name">{{ question.title }}</h3>
                         <p class="ques-text">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem similique ut
-                            voluptatum. Nisi illum alias cupiditate labore voluptatem, enim quod corporis culpa
-                            dolores
-                            velit repellat laboriosam reprehenderit ullam debitis voluptas. Lorem ipsum dolor, sit
-                            amet
-                            consectetur adipisicing elit. Amet reiciendis temporibus cum aperiam earum. Impedit
-                            libero
-                            repellat distinctio. Libero cumque sunt repudiandae nulla voluptatem? Illo, eum!
-                            Perferendis
-                            esse possimus nihil.
+                            {{ question.content }}
                         </p>
                         <p class="ques-text">Tags: <a class="ques-tags" href="#">PyPy</a>, <a class="ques-tags"
                                 href="#">C#</a>, <a class="ques-tags" href="#">smtng</a></p>
@@ -72,7 +65,7 @@
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-2">
-                            <img class="question-img" src="../static/img/ava.jpg" alt="...">
+                            <img class="question-img" src="{% static '/img/ava.jpg' %}" alt="...">
                             <div class="vote">
                                 <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>
                             </div>
@@ -100,7 +93,7 @@
                 <div class="card">
                     <div class="row g-0">
                         <div class="col-2">
-                            <img class="question-img" src="../static/img/ava.jpg" alt="...">
+                            <img class="question-img" src="{% static '/img/ava.jpg' %}" alt="...">
                             <div class="vote">
                                 <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>
                             </div>
