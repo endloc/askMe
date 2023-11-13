@@ -22,32 +22,15 @@
                 <button class="btn search-button" type="submit">Search</button>
             </form>
         </div>
-        <div class="col-md-2 acc">
-            <div>
-                <span class="acc-name">Name Lastname</span>
-                <div class="row acc-funcs">
-                    <div class="col-5">
-                        <a class="link-opacity-25-hover acc-settings" href="#">Settings</a>
-                    </div>
-                    <div class="col-7">
-                        <a class="link-opacity-25-hover acc-log-out" href="#">Log-out</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1">
-            <img class="avatar" src="{% static '/img/ava.jpg' %}">
-        </div>
+        {% include 'components/not-auth-user.html' %}
     </div>
 
     <div class="container body">
-        <!-- <div class="row main"> -->
         <div class="row">
             <div class="col-md-9 main">
                 {% block content %}
 
-                    empty block
+                empty block
 
                 {% endblock %}
             </div>

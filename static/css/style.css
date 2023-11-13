@@ -46,6 +46,11 @@
     margin-top: 10px;
     padding-left: 30px;
     color: black;
+    text-decoration: none;
+}
+
+a.site-name:hover {
+    color: black;
 }
 
 .nav-link {
@@ -105,7 +110,7 @@
 }
 
 a:active {
-    font-weight: 200;
+    font-weight: 600;
 }
 
 .question-img {
@@ -244,7 +249,7 @@ footer.container {
 }
 
 .h2-ask {
-    margin-top: 40px;
+    margin-top: 15px;
     margin-bottom: 20px;
 }
 
@@ -337,7 +342,7 @@ margin-bottom: 5px;
     display: flex;
     align-items: center;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: rgb(255, 224, 229);
     margin-top: 7px;
     margin-bottom: 10px;
@@ -345,7 +350,7 @@ margin-bottom: 5px;
 
 .signup-btn {
     margin-top: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 100px;
     width: 120px;
 }
 
