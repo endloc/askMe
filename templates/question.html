@@ -1,192 +1,45 @@
+{% extends 'layouts/base.html' %}
+
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block content %}
 
-<head>
-    <meta charset="UTF-8">
-    <title>Question</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="../static/css/style.css">
-</head>
-
-<body>
-    <div class="row my-nav">
-        <div class="col-md-3 site-name">
-            <a class="site-name" href="{% url 'index' %}">Intellection</a>
-        </div>
-        <div class="col-md-6">
-            <form class="d-flex">
-                <input class="form-control me-2 search-field" type="search" placeholder="Type here">
-                <button class="btn search-button" type="submit">Search</button>
-            </form>
-        </div>
-        <div class="col-md-2 acc">
-            <div>
-                <span class="acc-name">Name Lastname</span>
-                <div class="row acc-funcs">
-                    <div class="col-5">
-                        <a class="link-opacity-25-hover acc-settings" href="#">Settings</a>
-                    </div>
-                    <div class="col-7">
-                        <a class="link-opacity-25-hover acc-log-out" href="#">Log-out</a>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1">
-            <img class="avatar" src="{% static '/img/ava.jpg' %}">
-        </div>
+<div class="row ques-body">
+    <div class="col-2">
+        <img class="ques-page-img" src="{% static '/img/ava.jpg' %}" alt="...">
     </div>
+    <div class="col-10">
+        <h3 class="ques-name">{{ question.title }}</h3>
+        <p class="ques-text">
+            {{ question.content }}
+        </p>
+        <p class="ques-text">Tags:
+            {% for tag in question.tags %}
+            <a class="ques-tags" href="{% url 'tag' tag %}">{{ tag }}</a>
+            {% endfor %}
+        </p>
 
-    <div class="container body">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="row ques-body">
-                    <div class="col-2">
-                        <img class="ques-page-img" src="{% static '/img/ava.jpg' %}" alt="...">
-                    </div>
-                    <div class="col-10">
-                        <h3 class="ques-name">{{ question.title }}</h3>
-                        <p class="ques-text">
-                            {{ question.content }}
-                        </p>
-                        <p class="ques-text">Tags: <a class="ques-tags" href="#">PyPy</a>, <a class="ques-tags"
-                                href="#">C#</a>, <a class="ques-tags" href="#">smtng</a></p>
-                    </div>
-                </div>
-
-                <hr>
-
-                <h2 class="h2-ques">Answers</h2>
-
-                <div class="card">
-                    <div class="row g-0">
-                        <div class="col-2">
-                            <img class="question-img" src="{% static '/img/ava.jpg' %}" alt="...">
-                            <div class="vote">
-                                <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>
-                            </div>
-                        </div>
-                        <div class="col-10">
-                            <div class="card-body">
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna
-                                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                    ut
-                                    aliquip ex ea commodo consequat.</p>
-
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
-                                <label class="form-check-label" for="defaultCheck1">
-                                    Checked / Проверено
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="row g-0">
-                        <div class="col-2">
-                            <img class="question-img" src="{% static '/img/ava.jpg' %}" alt="...">
-                            <div class="vote">
-                                <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>
-                            </div>
-                        </div>
-                        <div class="col-10">
-                            <div class="card-body">
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                    eiusmod tempor incididunt ut labore et dolore magna
-                                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-                                    ut
-                                    aliquip ex ea commodo consequat.</p>
-
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
-                                <label class="form-check-label" for="defaultCheck1">
-                                    Checked / Проверено
-                                </label>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <nav>
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link">Prev</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
-
-
-                <hr>
-
-                <h2 class="h2-ques">You know the answer? Share it with us!</h2>
-                <div class="ans-input">
-                    <p><textarea rows="8" name="text" placeholder="Enter your answer" class="ans-input"></textarea></p>
-                    <button class="btn ans-btn">Answer!</button>
-                </div>
-            </div>
-
-            <div class="col-md-3 sidebar">
-                <h2>Popular Tags</h2>
-                <div class="tags">
-                    <button class="btn">Java</button>
-                    <button class="btn">Cpp</button>
-                    <button class="btn">React</button>
-                    <button class="btn">Py</button>
-                    <button class="btn">Assembler</button>
-                    <button class="btn">Django</button>
-                    <button class="btn">NumPy</button>
-                </div>
-                <h2>Best Members</h2>
-                <div class="best-members">
-                    <div class="member">
-                        <a href="#" class="member">Mr. Freeman</a>
-                    </div>
-                    <div class="member">
-                        <a href="#" class="member">Dr. House</a>
-                    </div>
-                    <div class="member">
-                        <a href="#" class="member">Bender</a>
-                    </div>
-                    <div class="member">
-                        <a href="#" class="member">Queen Victoria</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
+</div>
 
-    <!-- <div class="footer"> -->
-    <!-- <hr class="featurette-divider">
-    <footer class="container">
-        <p><a class="float-end" href="question.html">Вернуться наверх</a></p>
-        <p>2023 ASK me!</p>
-    </footer> -->
-    <!-- </div> -->
+<hr>
 
-    <div class="footer">
-        <hr class="featurette-divider">
-        <footer class="container">
-            <p><a class="float-end" href="#">Вернуться наверх</a></p>
-            <p>2023 ASK me!</p>
-        </footer>
-    </div>
-</body>
+<h2 class="h2-ques">Answers</h2>
 
-</html>
+{% for answer in page_obj %}
+
+{% include 'components/answer-item.html' %}
+
+{% endfor %}
+
+{% include 'components/pagination.html' %}
+
+<hr>
+
+<h2 class="h2-ques">Do you know the answer? Share it with us!</h2>
+<div class="ans-input">
+    <p><textarea rows="8" name="text" placeholder="Enter your answer" class="ans-input"></textarea></p>
+    <button class="btn ans-btn">Answer!</button>
+</div>
+
+{% endblock %}

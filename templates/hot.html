@@ -5,17 +5,16 @@
 {% block content %}
 
 <div class="row">
-    <ul class="nav nav-underline">
-        <li class="nav-item">
-            <a class="nav-link other-questions" href="{% url 'index' %}">New questions</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active cur-questions" aria-current="page" href="{% url 'hot' %}">Hot questions</a>
-        </li>
-    </ul>
+    <div class="col-8 new-hot-ques">
+        <a class="other-questions" href="{% url 'index' %}">New questions / </a>
+        <a class="cur-questions" href="{% url 'hot' %}">Hot questions</a>
+    </div>
+    <div class="col-4">
+        <a class="main-btn" href="{% url 'ask' %}">Ask a question!</a>
+    </div>
 </div>
 
-{% for question in page_objects %}
+{% for question in page_obj %}
 
 {% include 'components/question-item.html' %}
 

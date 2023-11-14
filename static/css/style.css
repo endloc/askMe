@@ -89,6 +89,7 @@ a.site-name:hover {
     color: black;
     font-size: 18px;
     padding-top: 10px;
+    margin-right: 0px;
 }
 
 .main {
@@ -96,22 +97,50 @@ a.site-name:hover {
     margin-top: 18px;
 }
 
+.main-btn {
+    /* font-size: 18px;
+    border-radius: 15px;
+    hei
+    width: 250px;
+    background-color: rgb(238, 238, 238);
+    border: none;
+    color: black;
+    padding: 10px; */
+    margin-top: 15px;
+    display: inline-block; /* Строчно-блочный элемент */
+    background: rgb(238, 238, 238); /* Серый цвет фона */
+    color: black; /* Белый цвет текста */
+    padding: 10px 69px; /* Поля вокруг текста */
+    text-decoration: none; /* Убираем подчёркивание */
+    border-radius: 10px;
+    font-size: 18px;
+    border: none;
+}
 
-.nav-link.active.cur-questions {
-    font-size: 20px;
+
+.cur-questions {
+    color: black;
+    font-size: 30px;
     font-weight: 500;
+    text-decoration: none;
 }
 
 .other-questions {
     color: rgb(158, 158, 158);
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 400;
+    text-decoration: none;
     /* font-size: 20px; */
 }
 
-a:active {
-    font-weight: 600;
+.new-hot-ques {
+    margin-top: 15px;
 }
+
+.cur-questions:hover {
+    color: #5578f4;
+}
+
 
 .question-img {
     width: 100px;
@@ -204,7 +233,7 @@ a:hover {
 }
 
 .ques-name {
-    margin-top: 40px;
+    margin-top: 28px;
     margin-right: 10px;
 }
 
@@ -315,7 +344,7 @@ margin-bottom: 5px;
     display: flex;
     align-items: center;
     border: none;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: rgb(255, 224, 229);
     margin-top: 7px;
     margin-bottom: 10px;
@@ -422,4 +451,38 @@ img.settings-img {
     border-radius: 5px;
     /* padding: 5px; */
     width: 150px;
+}
+
+/* 404.html */
+
+.error {
+    font-size: 200px;
+    weight: 600;
+}
+
+.h2-tag-name {
+    font-weight: 550;
+    color: #5578f4;
+}
+
+.first-last-page{
+    border: none;
+    margin-right: 1px;
+}
+
+.first-last-page:hover{
+    color: #5578f4;
+    background-color: white;
+}
+
+.page-link:hover {
+    color: #5578f4;
+}
+
+.nav-link.active {
+    font-weight: 800;
+}
+
+.like-num {
+    margin-left: 5px;
 }

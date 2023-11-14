@@ -15,7 +15,10 @@
                 <p class="card-text">
                     {{ question.content }}
                 </p>
-                <p>Tags: <a class="ques-tags" href="#">harry</a>, <a class="ques-tags" href="#">whale
+                <p>Tags:
+                    {% for tag in question.tags %}
+                    <a class="ques-tags" href="{% url 'tag' tag %}">{{ tag }}</a>
+                    {% endfor %}
                 </p>
                 <a class="ques-ans" href="{% url 'question' question.id %}">Go to answers (10)</a>
             </div>
