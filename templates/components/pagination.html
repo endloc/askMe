@@ -1,32 +1,8 @@
-<!--<nav>-->
-<!--    <ul class="pagination justify-content-center">-->
-<!--        <li class="page-item disabled">-->
-<!--            <a class="page-link">Prev</a>-->
-<!--        </li>-->
-<!--        <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--        <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--        <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--        <li class="page-item">-->
-<!--            <a class="page-link" href="#">Next</a>-->
-<!--        </li>-->
-<!--    </ul>-->
-<!--</nav>-->
-
 <nav>
     <ul class="pagination justify-content-center">
-        <!--        {% for p in paginate.paginator.page_range %}-->
-        <!--        {% if page_obj.number == p %}-->
-        <!--        <li class="page-item">{{ p }}</li>-->
-        <!--        {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}-->
-        <!--        <li class="page-item">-->
-        <!--            <a class="page-link" href="?page={{ p }}">{{ p }}</a>-->
-        <!--        </li>-->
-        <!--        {% endif %}-->
-        <!--        {% endfor %}-->
         <a class="page-link first-last-page" href="?page=1">first page</a>
         {% if page_obj.has_previous %}
         <li class="page-item">
-            <!--<a class="page-link">Prev</a>-->
             <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a>
         </li>
         {% else %}

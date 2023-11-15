@@ -58,10 +58,18 @@ def error_404_view(request, exception):
 def paginate(request, objects, per_page=10):
     paginator = Paginator(objects, per_page)
     page_number = request.GET.get('page')
-    if page_number is None or int(page_number) <= 0:
+    try:
+        int_page_number = int(page_number)
+        if int_page_number <= 0:
+            page_number = 1
+        elif int_page_number > paginator.num_pages:
+            page_number = paginator.num_pages
+        else:
+            page_number = int_page_number
+    except ValueError:
         page_number = 1
-    elif int(page_number) > paginator.num_pages:
-        page_number = paginator.num_pages
+    except TypeError:
+        page_number = 1
     page_obj = paginator.get_page(page_number)
     return page_obj
 
