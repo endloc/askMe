@@ -11,10 +11,13 @@ class Profile(models.Model):
 
 class QuestionManager(models.Manager):
     def new(self):
-        return self.order_by('-date')
+        return super().get_query_set().order_by('-date')
 
     def hot(self):
-        return self.order_by('-rating')
+        return super().get_query_set().order_by('-rating')
+
+    def by_tag(self, tag):
+        return super().get_query_set().filter(tags__name=tag)
 
 
 class Tag(models.Model):
@@ -29,7 +32,7 @@ class Question(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, through='QuestionLike', related_name='liked_questions')
 
-    questions = QuestionManager()
+    objects = QuestionManager()
 
     # class Meta:
     #     verbose_name = 'question'
