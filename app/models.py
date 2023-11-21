@@ -5,8 +5,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nickname = models.CharField(max_length=100)
-    password = models.CharField(max_length=32)
-    avatar = models.ImageField()
+    avatar = models.ImageField(max_length=255, blank=True)
     
 
 class QuestionManager(models.Manager):
@@ -33,6 +32,9 @@ class Question(models.Model):
     likes = models.ManyToManyField(User, through='QuestionLike', related_name='liked_questions')
 
     objects = QuestionManager()
+
+    def __str__(self):
+        return self.title
 
     # class Meta:
     #     verbose_name = 'question'
