@@ -22,6 +22,11 @@ class QuestionManager(models.Manager):
 class Tag(models.Model):
     name = models.CharField(max_length=20)
 
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.name
+
 
 class Question(models.Model):
     title = models.CharField(max_length=255)
@@ -30,6 +35,8 @@ class Question(models.Model):
     tags = models.ManyToManyField(Tag)
     date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, through='QuestionLike', related_name='liked_questions')
+    likes_count = models.IntegerField(default=0)
+    answers_count = models.IntegerField(default=0)
 
     objects = QuestionManager()
 
@@ -47,7 +54,7 @@ class Question(models.Model):
 
 
 class QuestionLike(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 
     class Meta:
@@ -55,13 +62,18 @@ class QuestionLike(models.Model):
 
 
 class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='answers')
     text = models.TextField()
     status = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, through='AnswerLike', related_name='liked_answers')
+    likes_count = models.IntegerField(default=0)
 
-    answers = models.Manager()
+    objects = models.Manager()
+
+    def __str__(self):
+        return self.text[:min(70, len(self.text))] + "..."
 
     # class Meta:
     #     verbose_name = 'answer'
@@ -69,7 +81,7 @@ class Answer(models.Model):
 
 
 class AnswerLike(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
 
     class Meta:
