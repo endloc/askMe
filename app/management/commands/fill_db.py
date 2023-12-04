@@ -20,9 +20,9 @@ class Command(BaseCommand):
         ratio = options['ratio']
         # self.create_users(ratio)
         # self.create_tags(ratio)
-        # self.create_questions(ratio)
-        # self.create_answers(ratio)
-        self.create_likes(ratio)
+        self.create_questions(ratio)
+        self.create_answers(ratio)
+        # self.create_likes(ratio)
         print(f'END.')
 
     def create_users(self, ratio):
@@ -69,20 +69,22 @@ class Command(BaseCommand):
             for i in range(tags_num):
                 question.tags.add(tags_list[i])
             question.save()
-        print(f"{ratio} questions finished.")
+        print(f"{ratio * 10} questions finished.")
 
     def create_answers(self, ratio):
         questions = Question.objects.all()
-        cur_question = random.choice(questions)
         users = User.objects.all()
-        answers = (Answer(
-            question=cur_question,
-            user=random.choice(users),
-            text=fake.text(max_nb_chars=300),
-            status=random.choice([True, False])) for i in range(ratio * 100))
-        cur_question.answers_count += 1
-        cur_question.save()
-
+        answers = []
+        for _ in range(ratio * 10):
+            cur_question = random.choice(questions)
+            answer = Answer(
+                question=cur_question,
+                user=random.choice(users),
+                text=fake.text(max_nb_chars=300),
+                status=random.choice([True, False]))
+            answers.append(answer)
+            cur_question.answers_count += 1
+            cur_question.save()
         batch_size = 100
         count = 0
         cur_answers = list(answers)

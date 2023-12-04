@@ -13,7 +13,7 @@ class QuestionManager(models.Manager):
         return super().get_query_set().order_by('-date')
 
     def hot(self):
-        return super().get_query_set().order_by('-rating')
+        return super().get_query_set().order_by('-likes_count')
 
     def by_tag(self, tag):
         return super().get_query_set().filter(tags__name=tag)
@@ -29,12 +29,13 @@ class Tag(models.Model):
 
 
 class Question(models.Model):
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255)
     text = models.TextField()
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='questions')
     tags = models.ManyToManyField(Tag)
     date = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, through='QuestionLike', related_name='liked_questions')
+    # likes = models.ManyToManyField(User, through='QuestionLike', related_name='liked_questions')
     likes_count = models.IntegerField(default=0)
     answers_count = models.IntegerField(default=0)
 
@@ -62,12 +63,13 @@ class QuestionLike(models.Model):
 
 
 class Answer(models.Model):
+    id = models.AutoField(primary_key=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='answers')
     text = models.TextField()
     status = models.BooleanField(default=False)
     date = models.DateTimeField(auto_now_add=True)
-    likes = models.ManyToManyField(User, through='AnswerLike', related_name='liked_answers')
+    # likes = models.ManyToManyField(User, through='AnswerLike', related_name='liked_answers')
     likes_count = models.IntegerField(default=0)
 
     objects = models.Manager()
