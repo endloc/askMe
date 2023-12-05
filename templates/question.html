@@ -11,10 +11,10 @@
     <div class="col-10">
         <h3 class="ques-name">{{ question.title }}</h3>
         <p class="ques-text">
-            {{ question.content }}
+            {{ question.text }}
         </p>
         <p class="ques-text">Tags:
-            {% for tag in question.tags %}
+            {% for tag in question.tags.all %}
             <a class="ques-tags" href="{% url 'tag' tag %}">{{ tag }}</a>
             {% endfor %}
         </p>

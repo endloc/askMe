@@ -77,14 +77,18 @@ WSGI_APPLICATION = 'askMe.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'AskMe',
-        'USER': 'root',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'askme',
+        'USER': 'cmd',
         'PASSWORD': 'endloc',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'HOST': 'localhost',
+        'PORT': '5433',
+        # superuser: lilianaamirova
+        # email: lilianochka.amirova@gmail.com
+        # passw: endloc
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

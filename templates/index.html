@@ -9,9 +9,9 @@
         <a class="cur-questions" href="{% url 'index' %}">New questions </a>
         <a class="other-questions" href="{% url 'hot' %}">/ Hot questions</a>
     </div>
-<div class="col-4">
-    <a class="main-btn" href="{% url 'ask' %}">Ask a question!</a>
-</div>
+    <div class="col-4">
+        <a class="main-btn" href="{% url 'ask' %}">Ask a question!</a>
+    </div>
 </div>
 
 {% for question in page_obj %}

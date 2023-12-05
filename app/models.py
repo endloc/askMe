@@ -5,18 +5,23 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nickname = models.CharField(max_length=100)
-    avatar = models.ImageField(max_length=255, blank=True)
+    avatar = models.ImageField(max_length=255, unique=True, blank=True)
+
+    objects = models.Manager
 
 
 class QuestionManager(models.Manager):
     def new_questions(self):
-        return super().get_query_set().order_by('-date')
+        return self.order_by('-date')
 
     def hot_questions(self):
-        return super().get_query_set().order_by('-likes_count')
+        return self.order_by('-likes_count')
 
     def questions_by_tag(self, tag):
-        return super().get_query_set().filter(tags__name=tag).order_by('-date')
+        return self.filter(tags__name=tag).order_by('-date')
+
+    def question_by_id(self, question_id):
+        return self.get(id=question_id)
 
 
 class AnswerManager(models.Manager):
@@ -28,12 +33,12 @@ class AnswerManager(models.Manager):
 
 
 class TagManager(models.Manager):
-    def tag_by_title(self, title):
-        return self.filter(tag_title__exact=title)
+    def tag_by_name(self, tag_name):
+        return self.get(name=tag_name)
 
 
 class Tag(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
 
     objects = TagManager()
 
@@ -88,7 +93,7 @@ class Answer(models.Model):
     # likes = models.ManyToManyField(User, through='AnswerLike', related_name='liked_answers')
     likes_count = models.IntegerField(default=0)
 
-    objects = models.AnswerManager()
+    objects = AnswerManager()
 
     def __str__(self):
         return f"to question: {self.question}; answer text: {self.text[:min(40, len(str(self.text)))]} ..."

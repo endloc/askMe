@@ -21,12 +21,12 @@ class Command(BaseCommand):
         # self.create_users(ratio)
         # self.create_tags(ratio)
         self.create_questions(ratio)
-        self.create_answers(ratio)
+        # self.create_answers(ratio)
         # self.create_likes(ratio)
         print(f'END.')
 
     def create_users(self, ratio):
-        for i in range(ratio):
+        for _ in range(ratio):
             try:
                 User.objects.create_user(
                     username=fake.first_name()+str(random.randint(1, 1000)),
@@ -36,35 +36,43 @@ class Command(BaseCommand):
         print(f"{ratio} users finished.")
 
     def create_tags(self, ratio):
-        tags = (Tag(name=fake.word()) for i in range(ratio))
+        # tags = [Tag(name=(fake.word() + fake.word())[:20]) for _ in range(ratio)]
+        tags = [Tag.objects.create(name=(fake.word()[:random.randint(1, 3)] + fake.word()[:random.randint(2, 5)]) +
+                                        fake.word()[:random.randint(1, 4)]) for _ in range(ratio)]
         batch_size = 100
+        # while True:
+        #     try:
+        #         batch = list(islice(tags, batch_size))
+        #         if not batch:        batch_size = 100
+        #         # while True:
+        #         #     try:
+        #         #         batch = list(islice(tags, batch_size))
+        #         #         if not batch:
+        #         #             break
+        #         #         Tag.objects.bulk_create(batch)
+        #         #     except IntegrityError:
+        #         #         continue
+        #             break
+        #         Tag.objects.bulk_create(batch)
+        #     except IntegrityError:
+        #         continue
         while True:
             batch = list(islice(tags, batch_size))
             if not batch:
                 break
-            Tag.objects.bulk_create(batch, batch_size)
+            Tag.objects.bulk_create(batch)
         print(f"{ratio} tags finished.")
 
     def create_questions(self, ratio):
         users = User.objects.all()
         tags = Tag.objects.all()
-        questions = (Question(
+        questions = [Question(
             title=fake.sentence(nb_words=10)[:-1] + "?",
             text=fake.text(max_nb_chars=300),
-            user=random.choice(users)) for i in range(ratio * 10))
-
-        batch_size = 100
-        count = 0
-        cur_questions = list(questions)
-        while count < ratio * 10:
-            batch = list(islice(cur_questions, batch_size))
-            cur_questions = cur_questions[batch_size:]
-            count += batch_size
-            Question.objects.bulk_create(batch, batch_size)
-
-        questions = Question.objects.all()
+            user=random.choice(users)) for _ in range(ratio * 10)]
+        Question.objects.bulk_create(questions)
         for question in questions:
-            tags_num = random.randint(1, 6)
+            tags_num = random.randint(1, 5)
             tags_list = random.SystemRandom().sample(list(tags), tags_num)
             for i in range(tags_num):
                 question.tags.add(tags_list[i])

@@ -4,23 +4,29 @@
     <div class="row g-0">
         <div class="col-2">
             <img class="question-img" src="{% static '/img/ava.jpg' %}" alt="...">
-            <div class="vote">
-                <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>
-            </div>
+            <!--                        <div class="vote">-->
+            <!--                            <p><input type="number" name="like" value="5" min="0" max="100" step="1"></p>-->
+            <!--                        </div>-->
+            <p>
+                <button type="submit" class="like-btn">
+                    <img src="{% static '/img/like.svg' %}" class="like-img">
+                </button>
+                {{ question.likes_count }}
+            </p>
         </div>
         <div class="col-10">
             <div class="card-body">
                 <h4><a class="card-title" href="{% url 'question' question.id %}">{{ question.title }}</a>
                 </h4>
                 <p class="card-text">
-                    {{ question.content }}
+                    {{ question.text|slice:":170" }}...
                 </p>
                 <p>Tags:
-                    {% for tag in question.tags %}
-                    <a class="ques-tags" href="{% url 'tag' tag %}">{{ tag }}</a>
+                    {% for tag in question.tags.all %}
+                    <a class="ques-tags" href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
                     {% endfor %}
                 </p>
-                <a class="ques-ans" href="{% url 'question' question.id %}">Go to answers (10)</a>
+                <a class="ques-ans" href="{% url 'question' question.id %}">Go to answers ({{ question.answers_count }})</a>
             </div>
         </div>
     </div>

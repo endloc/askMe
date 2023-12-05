@@ -1,60 +1,19 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator
+from app.models import Question, Answer, Tag, User
 
-QUESTIONS = [
-    {
-        'id': i,
-        'title': f'How to build a moon park {i}',
-        'content': f'Long Lorem ipsum {i}',
-        'tags': ['blabla', 'alala']
-    } for i in range(55)
-]
-QUESTIONS.append({
-    'id': len(QUESTIONS),
-    'title': 'How to build a moon park',
-    'content': 'Long Lorem ipsum',
-    'tags': ['blabla', 'lololo']
-})
 
-ANSWERS = [
-    {
-        'id': i,
-        'content': f'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eleifend, tortor id finibus feugiat, magna mauris gravida leo, et tincidunt nibh nisl et turpis. Sed consectetur ante vitae finibus finibus. Mauris at condimentum tellusac nisi nec sapien efficitur dapibus in ac sem. {i}'
-    } for i in range(10)
-]
-
-MEMBERS = [
-    {
-        'id': 0,
-        'name': 'Mr. Freeman'
-    }, {
-        'id': 1,
-        'name': 'Dr. House'
-    }, {
-        'id': 2,
-        'name': 'Queen Victoria'
-    }
-]
-
-TAGS = [
-    {
-        'id': 0,
-        'name': 'blabla'
-    }, {
-        'id': 1,
-        'name': 'alala'
-    }, {
-        'id': 2,
-        'name': 'lololo'
-    }
-]
+# TODO: COMENT WHEN MIGRATE
+TAGS = list(Tag.objects.all())
+TAGS = TAGS[:10]
+USERS = list(User.objects.all())
+USERS = USERS[:5]
 
 
 def error_404_view(request, exception):
     return render(request, '404.html')
 
 
-# per_page - how many ques on one page
 def paginate(request, objects, per_page=10):
     paginator = Paginator(objects, per_page)
     page_number = request.GET.get('page')
@@ -75,39 +34,64 @@ def paginate(request, objects, per_page=10):
 
 
 def index(request):
-    return render(request, 'index.html', {'tags': TAGS, 'members': MEMBERS, 'page_obj': paginate(request, QUESTIONS)})
+    new_questions = list(Question.objects.new_questions())
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    print(USERS)
+    return render(request, "index.html",
+                  {'tags': TAGS, 'members': USERS, 'page_obj': paginate(request, new_questions)})
+    # return render(request, 'index.html', {'tags': TAGS, 'members': MEMBERS, 'page_obj': paginate(request, QUESTIONS)})
 
 
 def hot(request):
-    return render(request, 'hot.html', {'tags': TAGS, 'members': MEMBERS, 'page_obj': paginate(request, QUESTIONS)})
+    hot_questions = list(Question.objects.hot_questions())
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    return render(request, "hot.html",
+                  {'tags': TAGS, 'members': USERS, 'page_obj': paginate(request, hot_questions)})
+    # return render(request, 'hot.html', {'tags': TAGS, 'members': MEMBERS, 'page_obj': paginate(request, QUESTIONS)})
 
 
-def tag(request, tag):
-    ques_obj = []
-    for question in QUESTIONS:
-        if tag in question['tags']:
-            ques_obj.append(question)
-    return render(request, 'tag.html',
-                  {'tags': TAGS, 'members': MEMBERS, 'tag': tag, 'page_obj': paginate(request, ques_obj)})
+def by_tag(request, tag_name):
+    tag = Tag.objects.tag_by_name(tag_name)
+    questions = list(Question.objects.questions_by_tag(tag))
+    return render(request, "tag.html",
+                  {'tags': TAGS, 'members': USERS, 'tag': tag,
+                   'page_obj': paginate(request, questions)})
 
 
 def question(request, question_id):
-    question = QUESTIONS[question_id]
-    return render(request, 'question.html', {'tags': TAGS, 'members': MEMBERS, 'question': question,
-                                             'page_obj': paginate(request, ANSWERS, 3)})
+    question = Question.objects.question_by_id(question_id)
+    answers = list(Answer.objects.answers_by_question(question))
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    return render(request, 'question.html', {'tags': TAGS, 'members': USERS,
+                                             'question': question, 'page_obj': paginate(request, answers, 3)})
 
 
 def login(request):
-    return render(request, 'login.html', {'tags': TAGS, 'members': MEMBERS})
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    return render(request, 'login.html',
+                  {'tags': TAGS, 'members': USERS})
 
 
 def signup(request):
-    return render(request, 'signup.html', {'tags': TAGS, 'members': MEMBERS})
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    return render(request, 'signup.html',
+                  {'tags': TAGS, 'members': USERS})
 
 
 def ask(request):
-    return render(request, 'ask.html', {'tags': TAGS, 'members': MEMBERS})
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    return render(request, 'ask.html',
+                  {'tags': TAGS, 'members': USERS})
 
 
 def settings(request):
-    return render(request, 'settings.html', {'tags': TAGS, 'members': MEMBERS})
+    # tags = list(Tag.objects.all())
+    # users = list(User.objects.all())
+    return render(request, 'settings.html',
+                  {'tags': TAGS, 'users': USERS})
