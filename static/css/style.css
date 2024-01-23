@@ -107,11 +107,16 @@ a.site-name:hover {
     color: black;
     padding: 10px; */
     margin-top: 15px;
-    display: inline-block; /* Строчно-блочный элемент */
-    background: rgb(238, 238, 238); /* Серый цвет фона */
-    color: black; /* Белый цвет текста */
-    padding: 10px 69px; /* Поля вокруг текста */
-    text-decoration: none; /* Убираем подчёркивание */
+    display: inline-block;
+    /* Строчно-блочный элемент */
+    background: rgb(238, 238, 238);
+    /* Серый цвет фона */
+    color: black;
+    /* Белый цвет текста */
+    padding: 10px 69px;
+    /* Поля вокруг текста */
+    text-decoration: none;
+    /* Убираем подчёркивание */
     border-radius: 10px;
     font-size: 18px;
     border: none;
@@ -465,12 +470,12 @@ img.settings-img {
     color: #5578f4;
 }
 
-.first-last-page{
+.first-last-page {
     border: none;
     margin-right: 1px;
 }
 
-.first-last-page:hover{
+.first-last-page:hover {
     color: #5578f4;
     background-color: white;
 }
@@ -485,4 +490,10 @@ img.settings-img {
 
 .like-num {
     margin-left: 5px;
+}
+
+.like-btn {
+    margin-left: 25px;
+    border: none;
+    background: rgb(238, 238, 238);
 }

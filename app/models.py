@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     nickname = models.CharField(max_length=100)
-    avatar = models.ImageField(max_length=255, unique=True, blank=True)
+    avatar = models.ImageField(max_length=255, blank=True, upload_to='avatars/')
 
     objects = models.Manager
 
@@ -27,7 +27,7 @@ class QuestionManager(models.Manager):
 class AnswerManager(models.Manager):
     def answers_by_question(self, required_question):
         # try:
-        return self.all().filter(question=required_question).order_by('-date')
+        return self.filter(question=required_question).order_by('-date')
         # except self.model.DoesNotExist as e:
         #     return Answer.objects.none()
 

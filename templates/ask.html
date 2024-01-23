@@ -1,50 +1,46 @@
-{% extends 'layouts/base.html' %}
+{% extends base %}
 
 {% block content %}
 
 <h2 class="h2-ask">New Question</h2>
-<div class="row">
-    <div class="col-1 ask-title">
-        <p>Title</p>
+<form method="post">
+{% csrf_token %}
+    {% if form.errors %}
+    <div class="row">
+        <div class="alert-child">{{ form.errors }}</div>
     </div>
-    <div class="col-11">
-        <input name="text" placeholder="How can I build a moon park?"
-               class="ques-input">
-        <div class="alert-parent">
-            <div class="alert-child">Wrong Title.</div>
+    {% endif %}
+    <div class="row">
+        <div class="col-1 ask-title">
+            <p>Title</p>
+        </div>
+        <div class="col-11">
+            <input name="title" placeholder="How can I build a moon park?"
+                   class="ques-input">
         </div>
     </div>
-</div>
-<div class=" row">
-    <div class="col-1 ask-text">
-        <p>Text</p>
-    </div>
-    <div class="col-11">
-        <textarea rows="8" name="text" placeholder="Enter question text" class="ques-input"></textarea>
-
-        <div class="alert-parent">
-            <div class="alert-child">Wrong Text.</div>
+    <div class="row">
+        <div class="col-1 ask-text">
+            <p>Text</p>
+        </div>
+        <div class="col-11">
+            <textarea rows="8" name="text" placeholder="Enter question text" class="ques-input"></textarea>
         </div>
     </div>
-
-</div>
-<div class="row">
-    <div class="col-1 ask-tags">
-        <p>Tags</p>
-    </div>
-    <div class="col-11">
-        <input rows="1" name="text" placeholder="Enter tags" class="ques-input">
-        <div class="alert-parent">
-            <div class="alert-child">Wrong Tags.</div>
+    <div class="row">
+        <div class="col-1 ask-tags">
+            <p>Tags</p>
+        </div>
+        <div class="col-11">
+            <input rows="1" name="tags" placeholder="Enter tags" class="ques-input">
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-1">
+    <div class="row">
+        <div class="col-1">
+        </div>
+        <div class="col-11">
+            <button class="btn ask-btn">Ask!</button>
+        </div>
     </div>
-    <div class="col-11">
-        <button class="btn ask-btn">Ask!</button>
-    </div>
-</div>
-
+</form>
 {% endblock %}

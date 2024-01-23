@@ -3,10 +3,10 @@
         <div class="row acc-funcs">
             <div class="col-5"></div>
             <div class="col-5 acc-log-in">
-                <a class="acc-log-in" href="{% url 'login' %}">Log-in</a>
+                <a class="acc-log-in" href="{% url 'login' %}?continue={{ request.path }}">Log-in</a>
             </div>
             <div class="col-2 acc-register">
-                <a class="acc-register" href="{% url 'signup' %}">Register</a>
+                <a class="acc-register" href="{% url 'signup' %}?continue={{ request.path }}">Register</a>
             </div>
         </div>
     </div>

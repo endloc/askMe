@@ -106,7 +106,7 @@ class Command(BaseCommand):
         print(f"{ratio * 10} answers finished.")
 
     def create_likes(self, ratio):
-        questions = Question.objects.all()
+        questions = Question.objects.all() # может память
         answers = Answer.objects.all()
         users = User.objects.all()
         for _ in range(ratio):
@@ -146,23 +146,23 @@ class Command(BaseCommand):
                 print(count)
         print("tags for ques finished")
 
-        def create_profiles(self):
-            users = User.objects.all()
-            profiles = []
-            for cur_user in users:
-                profile = Profile(
-                    user=cur_user,
-                    nickname=cur_user.username
-                )
-                profiles.append(profile)
-            batch_size = 100
-            count = 0
-            cur_profiles = list(profiles)
-            size = len(users)
-            while count < size:
-                batch = list(islice(cur_profiles, batch_size))
-                cur_profiles = cur_profiles[batch_size:]
-                count += batch_size
-                Profile.objects.bulk_create(batch, batch_size)
-                if count % 1000 == 0:
-                    print(count)
+    # def create_profiles(self):
+    #     users = User.objects.all()
+    #     profiles = []
+    #     for cur_user in users:
+    #         profile = Profile(
+    #             user=cur_user,
+    #             nickname=cur_user.username
+    #         )
+    #         profiles.append(profile)
+    #     batch_size = 100
+    #     count = 0
+    #     cur_profiles = list(profiles)
+    #     size = len(users)
+    #     while count < size:
+    #         batch = list(islice(cur_profiles, batch_size))
+    #         cur_profiles = cur_profiles[batch_size:]
+    #         count += batch_size
+    #         Profile.objects.bulk_create(batch, batch_size)
+    #         if count % 1000 == 0:
+    #             print(count)

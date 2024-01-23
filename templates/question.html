@@ -1,4 +1,4 @@
-{% extends 'layouts/base.html' %}
+{% extends base %}
 
 {% load static %}
 
@@ -35,11 +35,17 @@
 {% include 'components/pagination.html' %}
 
 <hr>
-
-<h2 class="h2-ques">Do you know the answer? Share it with us!</h2>
-<div class="ans-input">
-    <p><textarea rows="8" name="text" placeholder="Enter your answer" class="ans-input"></textarea></p>
-    <button class="btn ans-btn">Answer!</button>
+{% if form.errors %}
+<div class="row">
+    <div class="alert-child">{{ form.errors }}</div>
 </div>
-
+{% endif %}
+<form method="post">
+    {% csrf_token %}
+    <h2 class="h2-ques">Do you know the answer? Share it with us!</h2>
+    <div class="ans-input">
+        <p><textarea rows="8" name="text" placeholder="Enter your answer" class="ans-input"></textarea></p>
+        <button class="btn ans-btn">Answer!</button>
+    </div>
+</form>
 {% endblock %}

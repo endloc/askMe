@@ -1,84 +1,75 @@
-{% extends 'layouts/base.html' %}
+{% extends base %}
 
 {% load static %}
 
 {% block content %}
 <div class="row">
-    <h2 class="h2-ask">Registration</h2>
-    <div class="row">
-        <div class="col-2 signup-text">
-            <p>Login</p>
-        </div>
-        <div class="col-6">
-            <input placeholder="dr_pepper" class="signup-input">
-            <div class="signup-alert">
-                <div class="alert-child">Login is unvaluable.</div>
+    <form method="post">
+        {% csrf_token %}
+        <h2 class="h2-ask">Registration</h2>
+        {% if form.errors %}
+            <div class="alert-child">{{ form.errors }}</div>
+        {% endif %}
+        <div class="row">
+            <div class="col-2 signup-text">
+                <p>Login</p>
+            </div>
+            <div class="col-6">
+                <input placeholder="dr_pepper" name="username" class="signup-input">
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-2 signup-text">
-            <p>Email</p>
-        </div>
-        <div class="col-6">
-            <input type="email" placeholder="dr.pepper@mail.ru" class="signup-input">
-
-            <div class="signup-alert">
-                <div class="alert-child">This email address already registred! / Wrong Format.</div>
+        <div class="row">
+            <div class="col-2 signup-text">
+                <p>Email</p>
+            </div>
+            <div class="col-6">
+                <input type="email" name="email" placeholder="dr.pepper@mail.ru" class="signup-input">
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-2 signup-text">
-            <p>Nickname</p>
-        </div>
-        <div class="col-6">
-            <input placeholder="Dr. Pepper" class="signup-input">
-            <div class="signup-alert">
-                <div class="alert-child">Nickname is unavaliable.</div>
+        <div class="row">
+            <div class="col-2 signup-text">
+                <p>Nickname</p>
+            </div>
+            <div class="col-6">
+                <input placeholder="Dr. Pepper" name="nickname" class="signup-input">
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-2 signup-text">
-            <p>Passwd</p>
-        </div>
-        <div class="col-6">
-            <input type="password" class="signup-input">
-        </div>
-    </div>
-
-    <div class=" row">
-        <div class="col-2 signup-text">
-            <p>Repeat Passwd</p>
-        </div>
-        <div class="col-6">
-            <input type="password" class="signup-input">
-            <div class="signup-alert">
-                <div class="alert-child">Passwds are diff.</div>
+        <div class="row">
+            <div class="col-2 signup-text">
+                <p>Passwd</p>
+            </div>
+            <div class="col-6">
+                <input type="password" name="password" class="signup-input">
             </div>
         </div>
-    </div>
 
-    <div class="row">
-        <div class="col-2 signup-text">
-            <p class="upload-ava">Upload avatar</p>
+        <div class="row">
+            <div class="col-2 signup-text">
+                <p>Repeat Passwd</p>
+            </div>
+            <div class="col-6">
+                <input type="password" name="repeat_password" class="signup-input">
+            </div>
         </div>
-        <div class="col-6">
-            <form action="/upload" method="post" enctype="multipart/form-data" class="signup-form">
-                <input type="file" name="image" id="image" class="signup-fileinput">
-            </form>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-2">
+<!--        <div class="row">-->
+<!--            <div class="col-2 signup-text">-->
+<!--                <p class="upload-ava">Upload avatar</p>-->
+<!--            </div>-->
+<!--            <div class="col-6">-->
+<!--                <input type="file" name="avatar" id="avatar" class="signup-fileinput">-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row">
+            <div class="col-2">
+            </div>
+            <div class="col-6 signup-btn">
+                <button class="btn signup-btn">Register</button>
+            </div>
         </div>
-        <div class="col-6 signup-btn">
-            <button class="btn signup-btn">Register</button>
-        </div>
-    </div>
+    </form>
 </div>
 
 {% endblock %}
